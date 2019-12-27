@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- 保存注册用户的信息 -->
+<users>
+    <user>
+        <username>admin</username>
+        <password>admin</password>
+    </user>
+  
+</users>

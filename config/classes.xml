@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 用来存放小说类别和下载位置 -->
+<classes>
+	<class>
+		<classname>武侠</classname>
+		<catalog>txtcatalog\\wuxia\\</catalog>
+		<!-- 
+			为了每次遍历去磁盘查找再对小说集进行配置
+		 -->
+		<config>config\\txt_wuxia.xml</config>
+	</class>
+	<!-- 继续添加其他类别的配置 -->
+</classes>

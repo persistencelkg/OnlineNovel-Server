@@ -1,0 +1,6 @@
+	<novel>
+		<name>%1$s</name>
+		<author>%2$s</author>
+		<description>%3$s</description>
+		<filename>%4$s</filename>
+	</novel>

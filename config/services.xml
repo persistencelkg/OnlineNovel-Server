@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 服务端的主要功能配置 -->
+<services>
+	<service key="login">cn.ksb.minitxt.services.LoginService</service>
+	<!-- 继续添加其他服务器功能 -->
+</services>
