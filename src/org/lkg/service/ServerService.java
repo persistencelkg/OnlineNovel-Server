@@ -1,5 +1,6 @@
 package org.lkg.service;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -23,4 +24,10 @@ public interface ServerService<T extends Serializable> extends Runnable{
 	 */
 	public void init(Socket socket,ObjectInputStream in,ObjectOutputStream out,T data);
 	
+	
+	/**
+	 * 服务端的告别
+	 * @throws IOException IO异常
+	 */
+	public void destory() throws IOException;
 }

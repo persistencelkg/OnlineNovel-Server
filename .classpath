@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/OnlineNovel-Commond"/>
+	<classpathentry kind="lib" path="/OnlineNovel-Commond/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
