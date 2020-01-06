@@ -42,7 +42,7 @@ public abstract class BaseServiceImpl<T extends Serializable> implements ServerS
 	
 	/**
 	 * 引入这个方法目的: 让run方法执行该方法后 方便统一实现destroy
-	 * 否则子类就不知道何时该释放资源,也就是以后子类的业务都在execute方法中
+	 * 否则子类就不知道何时该释放资源,也就是说子类的业务直接重写execute方法即可
 	 * 
 	 * 注意:作为基类方法 设置protected好处只能只会被子类调用从而降低被其他类调用的风险
 	 *     但是,当具体的子类实现后应该设置为public 目的方便其被调用
@@ -69,4 +69,22 @@ public abstract class BaseServiceImpl<T extends Serializable> implements ServerS
 			}
 		}
 	}
+
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public ObjectInputStream getIn() {
+		return in;
+	}
+
+	public ObjectOutputStream getOut() {
+		return out;
+	}
+
+	public T getData() {
+		return data;
+	}
+	
+	
 }

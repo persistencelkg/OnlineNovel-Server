@@ -2,6 +2,11 @@ package org.lkg.txt.util;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +15,9 @@ import java.util.Set;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 import org.lkg.entity.Users;
 import org.lkg.util.ResultStatus;
 
@@ -24,13 +31,22 @@ import org.lkg.util.ResultStatus;
  * @data 2019年12月27日 下午11:33:57
  */
 public class UsersXmlUtil {
-	
+	/**
+	 * 从配置文件中获得user.xml路径
+	 */
 	private static final String path=GetProperies.getValue("server.config.user");
 	
+	/**
+	 * 将用户名和user对象映射
+	 */
 	private static Map<String, Users> userMap=new HashMap<>();
 	
+	/**
+	 * 全局文档对象
+	 */
+	private static Document document=null;
+	
 	static {
-		Document document=null;
 		SAXReader reader=new SAXReader();
 		try {
 			document=reader.read(new File(path));
@@ -40,10 +56,9 @@ public class UsersXmlUtil {
 			@SuppressWarnings("unchecked")
 			List<Element> list=root.elements("user");
 			for (Element element : list) {
-				@SuppressWarnings("unchecked")
 				Element uname=element.element("username");
 				Element upass=element.element("password");
-				userMap.put(uname.getText(),new Users(uname.getText().trim(),upass.getText().trim()));
+				userMap.put(uname.getText().trim(),new Users(uname.getText().trim(),upass.getText().trim()));
 			}
 			
 		} catch (DocumentException e) {
@@ -75,12 +90,64 @@ public class UsersXmlUtil {
   
 	/**
 	 * 注册-将用户信息写入Users.xml
+	 * 步骤:1.新建节点信息
+	 * 	   2.写入文件
+	 *     3.更新UserMap,否则用户读取不到及时的信息
 	 * 注意:在多线程情况下 应该考虑同步
 	 * @param user  注册用户
 	 * @return		注册结果
 	 */
 	public static synchronized ResultStatus doRegister(Users user) {
-		return ResultStatus.USERNAME_EXIST;
+		if(isExistUser(user.getUserName()))
+			return ResultStatus.USERNAME_EXIST;
+		
+		//新建注册节点信息
+		Element root=document.getRootElement();
+		Element newNode=root.addElement("user");
+		Element uname=newNode.addElement("username");
+		uname.setText(user.getUserName());
+		Element upass=newNode.addElement("password");
+		upass.setText(user.getPassword());
+		
+		//写入xml文件
+		XMLWriter writer=null;
+		try {
+			writer=new XMLWriter(new OutputStreamWriter(
+					new FileOutputStream(path),"UTF-8"),OutputFormat.createPrettyPrint());
+			writer.write(document);
+			writer.flush();
+
+			//将用户信息更新到map中
+			userMap.put(user.getUserName(),user);
+			
+			return ResultStatus.REGIST_SUCCESS;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if(writer!=null)
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		//处理异常的善后工作
+		document.remove(newNode);
+		userMap.remove(user.getUserName());
+		return ResultStatus.REGIST_FAIL;
 	}
 	
+	
+	/**
+	 * 判断用户名是否存在
+	 * @param uname 传入的用户名
+	 * @return 
+	 */
+	protected static boolean isExistUser(String uname) {
+		return userMap.containsKey(uname);
+	}
 }

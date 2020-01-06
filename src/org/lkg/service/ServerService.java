@@ -22,7 +22,7 @@ public interface ServerService<T extends Serializable> extends Runnable{
 	 * @param out    获取输出流
 	 * @param data	  传输的数据对象
 	 */
-	public void init(Socket socket,ObjectInputStream in,ObjectOutputStream out,T data);
+	public void init(Socket socket,ObjectInputStream in,ObjectOutputStream out,T data) throws IOException;
 	
 	
 	/**

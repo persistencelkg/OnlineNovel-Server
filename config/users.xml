@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!-- 保存注册用户的信息 -->
-<users>
-    <user>
-        <username>admin</username>
-        <password>xxxx</password>
-    </user>
-  
+<users> 
+  <user> 
+    <username>admin</username>  
+    <password>admin</password> 
+  </user>  
+  <user>
+    <username>lkg</username>
+    <password>lkg</password>
+  </user>
 </users>

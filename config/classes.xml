@@ -2,12 +2,18 @@
 <!-- 用来存放小说类别和下载位置 -->
 <classes>
 	<class>
+		<!-- 
+		  classname:分类名
+		  catalog:服务端存储分类的目录位置
+		  config:为每个分类下的小说设置通用的介绍配置信息
+		 -->
 		<classname>武侠</classname>
 		<catalog>txtcatalog\\wuxia\\</catalog>
-		<!-- 
-			为了每次遍历去磁盘查找再对小说集进行配置
-		 -->
 		<config>config\\txt_wuxia.xml</config>
 	</class>
-	<!-- 继续添加其他类别的配置 -->
+	<class>
+		<classname>言情</classname>
+		<catalog>txtcatalog\\yanqing\\</catalog>
+		<config>config\\txt_yanqing.xml</config>
+	</class>
 </classes>
