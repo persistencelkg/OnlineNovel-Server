@@ -23,7 +23,7 @@ public class GetClassficationService extends BaseServiceImpl<Serializable>{
 		SysDTO<Classifcation[]> dto=new SysDTO<>();
 		dto.setData(NovelUtil.getClassfilcation());
 		
-		getOut().writeObject(dto);
+		this.getOut().writeObject(dto);
 	}
 
 }

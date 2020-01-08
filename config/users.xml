@@ -6,8 +6,12 @@
     <username>admin</username>  
     <password>admin</password> 
   </user>  
+  <user> 
+    <username>lkg</username>  
+    <password>lkg</password> 
+  </user>  
   <user>
-    <username>lkg</username>
-    <password>lkg</password>
+    <username>test</username>
+    <password>test</password>
   </user>
 </users>

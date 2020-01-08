@@ -3,5 +3,9 @@
 <services>
 	<service key="login">org.lkg.service.impl.LoginInService</service>
 	<service key="regist">org.lkg.service.impl.RegisterService</service>
-	<!-- 继续添加其他服务器功能 -->
+	<service key="novel_sort">org.lkg.service.impl.GetClassficationService</service>
+	<service key="novel_list">org.lkg.service.impl.GetNoveInfoByClassesNameService</service>
+	<service key="upload">org.lkg.service.impl.UploadService</service>
+	<service key="download">org.lkg.service.impl.DownloadService</service>
+	<service key="preview">org.lkg.service.impl.GetPreviewService</service>
 </services>
