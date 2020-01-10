@@ -63,7 +63,7 @@ public class UsersXmlUtil {
 			
 		} catch (DocumentException e) {
 			e.printStackTrace();
-			//这里直接抛出异常,目的是如果配置文件读取失败就没有执行下去的必意!
+			//这里直接抛出异常,目的是如果配置文件读取失败就没有执行下去的必要!
 			throw new RuntimeException(e);
 		}
 	}
@@ -109,7 +109,7 @@ public class UsersXmlUtil {
 		Element upass=newNode.addElement("password");
 		upass.setText(user.getPassword());
 		
-		//写入xml文件
+		//写入xml文件,并设置良好的阅读输出
 		XMLWriter writer=null;
 		try {
 			writer=new XMLWriter(new OutputStreamWriter(

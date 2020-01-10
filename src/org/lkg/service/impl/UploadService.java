@@ -32,7 +32,7 @@ public class UploadService extends BaseServiceImpl<Novel>{
 	@Override
 	protected void execute() throws IOException {
 		SysDTO<?> dto=new SysDTO<>();
-		ResultStatus status=NovelUtil.saveNovel(getData());
+		ResultStatus status=NovelUtil.saveNovelToXml(getData());
 		dto.setResust(status);
 		getOut().writeObject(dto);
 		

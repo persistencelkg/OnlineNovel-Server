@@ -113,6 +113,7 @@ public class NovelUtil {
 		}
 	}
 	
+	
 	/**
 	 * 获取所有小说的分类集合工具
 	 * 可以避免服务器的存储结构被暴露给客户端
@@ -121,6 +122,7 @@ public class NovelUtil {
 	public static Classifcation[] getClassfilcation(){
 		return classMap.values().toArray(new Classifcation[0]);
 	}
+	
 	
 	/**
 	 * 获得某个类型的所有小说集合
@@ -138,7 +140,8 @@ public class NovelUtil {
 	 * 注:不能直接拿去fileName 因为序列化是没有该属性的
 	 *    同样也不能直接去拿小说的目录信息
 	 * 因此不能寄希望从客户端获得分类 再去获得路径  应该基于该工具类的集合进行遍历
-	 * 1.判断缓存中是否有预览信息有 直接返回 2.正常拼接路径 获得预览信息
+	 * 1.判断缓存中是否有预览信息有 直接返回 
+	 * 2.正常拼接路径 获得预览信息
 	 * @param novel 客户端传来的novel
 	 * @return 预览小说的部分内容
 	 * @throws FileNotFoundException,IOException  服务端出现的异常不应该被捕捉 要抛出来告诉客户端服务器这边出现了什么问题
@@ -222,13 +225,13 @@ public class NovelUtil {
 	 * @param novel  上传的小说
 	 * @return  返回服务端执行结果
 	 */
-	public static synchronized ResultStatus saveNovel(Novel novel) {
+	public static synchronized ResultStatus saveNovelToXml(Novel novel) {
 		if(isExistFile(novel)) return ResultStatus.FILE_EXIT;
 		
 		//设定小说的文件名
 		novel.setFileName(novel.getName()+".txt");
 		
-		//获得小说上传的文件路径
+		//获得新小说所属类别的xml配置文件   将新小说插入进去  
 		File getConfigfile=new File(classMap.get(novel.getClassifcation().getClassName()).getConfig());
 		
 		//新小说节点的信息
@@ -262,24 +265,6 @@ public class NovelUtil {
 					e.printStackTrace();
 				}
 		}
-		
-//		//上传失败:
-//		FileWriter fail=null;
-//		try {
-//			fail=new FileWriter(getConfigfile);
-//			fail.write(oldXmlInfo.toString());
-//			fail.flush();
-//		}catch (IOException e) {
-//			e.printStackTrace();
-//		}finally {
-//			if(writer!=null)
-//				try {
-//					writer.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//		}
-//		novelMap.get(novel.getClassifcation().getClassName()).remove(novel.getName());
 		return ResultStatus.UPLOAD_FAIL;
 	}
 	

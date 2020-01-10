@@ -16,7 +16,7 @@ import java.net.Socket;
 public interface ServerService<T extends Serializable> extends Runnable{
 
 	/**
-	 * 服务端处理义务的初始化
+	 * 服务端处理页务的初始化
 	 * @param socket 获取socket
 	 * @param in	   获取输入流
 	 * @param out    获取输出流
